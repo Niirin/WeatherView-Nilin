@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* Global Styles */
+
+body{
+  width: 100vw;
+  min-height: 100vh;
+  background-image: url(./assets/b-g.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Roboto', sans-serif;
+  color: #2B374D;
+  margin: 0px;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+.title {
+  font-size: 3em;
+  text-align: center;
+  padding: 20px;
+  margin: 0px;
+}
+
+/* End Global styles */
+
+/* Style for Main weather Display */
+.display{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  opacity: 80%;
+}
+
+.top-container {
+  background-color: #E3F4FE;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.icons-main {
+  padding: 10px;
+}
+
+.big-N {
+  font-size: 200px;
+  color: #6288A3; 
+  margin-top: 20px;
+}
+
+.current-weather {
+  padding: 10px;
+}
+
+.map-icon {
+  padding-right: 10px;
+}
+
+.temperature {
+  font-size: 5em;
+  margin: 0px;
+}
+
+.celsius-big, .celcius-small {
+  vertical-align:super;
+  margin-right: 10px;
+}
+
+/* Style for forecast days */
+
+.forecast-days {
+  font-size: 1.5em;
+  color: #E3F4FE;
+  margin-top: 20px;
+}
+
+.day-forecast-cont {
+  background-color: #E3F4FE;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.day-forecast-1 {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.mini-N {
+  font-size: 40px;
+  padding-top: 10px;
+  margin-left: 20px;
+  color: #6288A3;
+}
+
+.day-forecast-2 {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 600px) and (max-width: 769px) {
+  .display {
+    width: 70%;
+  }
+
+  .big-N {
+    font-size: 140px;
+    color: #6288A3; 
+  }
+
+  h1 {
+    font-size: 1.7em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  .temperature {
+    font-size: 3em;
+    margin: 0px;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+
+  .display {
+    width: 80%;
+  }
+
+  .top-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .icons-main {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 2em;
+  }
+
+  .big-N {
+    font-size: 100px;
+    color: #6288A3; 
+  }
+
+  .forecast-days {
+    font-size: 1.3em;
+  }
+
+  h1 {
+    font-size: 1.5em;
+    margin: 0px;
+  }
+
+  h2 {
+    font-size: 1.3em;
+    /* margin: 15px; */
+  }
+
+  .current-weather {
+    padding-top: 0;
+  }
+
+  .temperature {
+    font-size: 2em;
+    margin: 0px;
+  }
+
+  .mini-N {
+    font-size: 25px;
+  }
+
+  .day-forecast-cont {
+    margin-bottom: 20px;
+  }
+
+}
+
+
+
+
