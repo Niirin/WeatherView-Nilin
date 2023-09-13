@@ -43,7 +43,6 @@ function App() {
         const re = await respond.json();
         console.log(res)
         setData(res);
-        setForecastData(re)
       } catch (error) {
         console.error('Error cannot get geolocation or fetching data:', error);
     }
