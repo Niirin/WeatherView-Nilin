@@ -3,27 +3,45 @@ import './css/weather-icons.min.css'
 import { useState, useEffect } from 'react';
 import WeatherTop from "./components/WeatherTop";
 
+
 function App() {
   //Let's make 2 states to store current geolocation for the app
   const [lat, setLat]= useState([]);
   const [long, setLong] = useState([]);
   const [data, setData]= useState([]);
+  const [background, setBackground] = useState(null);
+  const [rendering, setRendering] = useState([true]);
 
   const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
   const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
   const apiKey = import.meta.env.VITE_APP_API_KEY;
 
   const weatherIcons = {
-    "clear sky" : "wi-day-sunny",
+    //Main
+    "clear" : "wi-day-sunny",
+    "smoke": "wi-smoke",
+    "haze" : "wi-dust",
+    "dust" : "wi-dust",
+    "fog" : "wi-fog",
+    "sand" : "wi-sandstorm",
+    "ash" : "wi-volcano",
+    "squails" : "wi-dust",
+    "tornado" : "wi-tornado",
+    "drizzle" : "wi-showers",
+    "rain" : " wi-day-rain",
+    "thunderstorm" : "wi-thunderstorm",
+    //Description for main display
     "few clouds" : "wi-day-cloudy",
     "scattered clouds" : "wi-cloud",
     "broken clouds" : "wi-cloudy",
-    "shower rain" : "wi-showers",
-    "rain" : " wi-day-rain",
-    "thunderstorm" : "wi-thunderstorm",
-    "snow" : "wi-snow",
-    "mist" : "wi-fog",
+    "overcast clouds": "wi-cloudy",
+    "clouds": "wi-cloudy"
   };
+
+  //Let's try to fetch picture and set background image from an API
+  useEffect(() => {
+    fetch("")
+  })
 
   useEffect(() => {
     const getLocation = () => {
@@ -35,25 +53,32 @@ function App() {
     const fetchData = async () => {
       try {
         const position = await getLocation();
-        setLat(position.coords.latitude.toFixed(2));
-        setLong(position.coords.longitude.toFixed(2));
+        setLat(position.coords.latitude);
+        setLong(position.coords.longitude);
         const response = await fetch(`${apiURL2}lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`)
         const res = await response.json();
-        const respond = await fetch(`${apiURL1}lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`)
-        const re = await respond.json();
+        // const respond = await fetch(`${apiURL1}lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`)
+        // const re = await respond.json();
         console.log(res)
         setData(res);
+        setRendering(false);
+        // setforecastData(re); 
       } catch (error) {
         console.error('Error cannot get geolocation or fetching data:', error);
+
     }
   };
 
     fetchData();
     }, [lat, long]);  //Re-render when lat or long changes
 
+    if (rendering) {
+      return <div className="title">Fetching data...</div>
+    }
 
   return (
-    <> <h1 className="title">Weather</h1>
+    <> <div >
+    <h1 className="title">Weather</h1>
         <section className="display">
         {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
         (<div></div>)}
@@ -88,6 +113,7 @@ function App() {
             </div>
           </div>
         </section> */}
+        </div>
     </>
   )
 }
