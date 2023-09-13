@@ -1,2 +1,0 @@
-REACT_APP_API_KEY = cc7df17ca33be7bea52fdcb745365b67
-REACT_APP_API_URL = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&units=metric&appid={cc7df17ca33be7bea52fdcb745365b67}'
