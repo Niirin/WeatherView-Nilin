@@ -1,17 +1,19 @@
 import React from 'react'; 
 import moment from 'moment';
-const Weather = ({ weatherIcons, weatherData }) => {
+const Weather = ({ weatherIcons, weatherData}) => {
+
 
 
     const day = moment().format('dddd');
     const date = moment().format('ll');
     const temperature = Math.floor(weatherData.main.temp);
-    const description = (weatherData.weather[0].description)
-    const city = weatherData.name + ', ' + weatherData.sys.country
+    const description = (weatherData.weather[0].description);
+    const city = weatherData.name + ', ' + weatherData.sys.country;
+    const main = (weatherData.weather[0].main);
 
     return (<div className="top-container">
                 <div className="icons-main">
-                <i className={` wi ${weatherIcons[description]} big-N`} alt="sunny overcast" />
+                <i className={` wi ${weatherIcons[main.toLowerCase()]} big-N`} alt="sunny overcast" />
                 </div>
                 <div className="current-weather">
                     <h2>Today: {day} {date} </h2>

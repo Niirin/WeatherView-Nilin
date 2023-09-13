@@ -2,27 +2,39 @@ import './App.css'
 import './css/weather-icons.min.css' 
 import { useState, useEffect } from 'react';
 import WeatherTop from "./components/WeatherTop";
+import WeatherForecast from './components/WeatherForecast';
 
 function App() {
   //Let's make 2 states to store current geolocation for the app
   const [lat, setLat]= useState([]);
   const [long, setLong] = useState([]);
   const [data, setData]= useState([]);
+  const [forecastData, setforecastData] = useState([]);
 
   const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
   const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
   const apiKey = import.meta.env.VITE_APP_API_KEY;
 
   const weatherIcons = {
-    "clear sky" : "wi-day-sunny",
+    //Main
+    "clear" : "wi-day-sunny",
+    "smoke": "wi-smoke",
+    "haze" : "wi-dust",
+    "dust" : "wi-dust",
+    "fog" : "wi-fog",
+    "sand" : "wi-sandstorm",
+    "ash" : "wi-volcano",
+    "squails" : "wi-dust",
+    "tornado" : "wi-tornado",
+    "drizzle" : "wi-showers",
+    "rain" : " wi-day-rain",
+    "thunderstorm" : "wi-thunderstorm",
+    //Description for main display
     "few clouds" : "wi-day-cloudy",
     "scattered clouds" : "wi-cloud",
     "broken clouds" : "wi-cloudy",
-    "shower rain" : "wi-showers",
-    "rain" : " wi-day-rain",
-    "thunderstorm" : "wi-thunderstorm",
-    "snow" : "wi-snow",
-    "mist" : "wi-fog",
+    "overcast clouds": "wi-cloudy",
+    "clouds" : "wi-cloudy"
   };
 
   useEffect(() => {
@@ -41,8 +53,9 @@ function App() {
         const res = await response.json();
         const respond = await fetch(`${apiURL1}lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`)
         const re = await respond.json();
-        console.log(res)
+        // console.log(res)
         setData(res);
+        setforecastData(re); 
       } catch (error) {
         console.error('Error cannot get geolocation or fetching data:', error);
     }
@@ -56,6 +69,8 @@ function App() {
     <> <h1 className="title">Weather</h1>
         <section className="display">
         {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
+        (<div></div>)}
+        {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
         (<div></div>)}
         </section>
         {/* 

@@ -21,7 +21,7 @@ h1 {
 
 h2 {
   font-size: 2em;
-  margin: 20px 0px;
+  margin: 10px 0px;
 }
 
 h3 {
@@ -53,7 +53,7 @@ h4 {
 .top-container {
   background-color: #E3F4FE;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   border-radius: 10px;
 }
@@ -63,7 +63,7 @@ h4 {
 }
 
 .big-N {
-  font-size: 180px;
+  font-size: 200px;
   color: #6288A3; 
   margin-top: 20px;
 }
@@ -77,7 +77,7 @@ h4 {
 }
 
 .temperature {
-  font-size: 4em;
+  font-size: 5em;
   margin: 0px;
 }
 
@@ -100,18 +100,19 @@ h4 {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
+  padding: 5px;
 }
 
 .day-forecast-1 {
   margin-left: 20px;
   display: flex;
   align-items: center;
+  width: 30%;
+  gap: 10px;
 }
 
 .mini-N {
   font-size: 40px;
-  padding-top: 10px;
-  margin-left: 20px;
   color: #6288A3;
 }
 
@@ -119,9 +120,22 @@ h4 {
   margin-right: 20px;
   display: flex;
   align-items: center;
+  gap: 10px;
+  width: 20%;
 }
 
-@media screen and (min-width: 600px) and (max-width: 769px) {
+.forecast-temp {
+  align-self: flex-start;
+  width: 50%;
+}
+
+.forecast-day {
+  /* align-self: flex-end; */
+  width: 50%;
+  margin-right: 10px;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1060px) {
   .display {
     width: 70%;
   }
@@ -142,6 +156,11 @@ h4 {
   .temperature {
     font-size: 3em;
     margin: 0px;
+  }
+
+  .day-forecast-1 {
+    width: 40%;
+    margin-left: 10px;
   }
 
 }
@@ -199,6 +218,15 @@ h4 {
 
   .day-forecast-cont {
     margin-bottom: 20px;
+  }
+
+  .day-forecast-1 {
+    width: 50%;
+    margin-left: 10px;
+  }
+
+  .day-forecast-2 {
+    width: 30%;
   }
 
 }
