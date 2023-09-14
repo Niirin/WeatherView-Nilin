@@ -2,6 +2,7 @@ import './App.css'
 import './css/weather-icons.min.css' 
 import { useState, useEffect } from 'react';
 import WeatherTop from "./components/WeatherTop";
+import WeatherForecast from './components/WeatherForecast';
 
 function App() {
   //Let's make 2 states to store current geolocation for the app
@@ -10,6 +11,7 @@ function App() {
   const [data, setData]= useState([]);
   // const [background, setBackground] = useState(null);
   const [rendering, setRendering] = useState([true]);
+  const [forecastData, setforecastData] = useState([]);
 
   const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
   const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
@@ -34,7 +36,7 @@ function App() {
     "scattered clouds" : "wi-cloud",
     "broken clouds" : "wi-cloudy",
     "overcast clouds": "wi-cloudy",
-    "clouds": "wi-cloudy"
+    "clouds" : "wi-cloudy"
   };
 
   //Let's try to fetch picture and set background image from an API
@@ -56,12 +58,13 @@ function App() {
         setLong(position.coords.longitude);
         const response = await fetch(`${apiURL2}lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`)
         const res = await response.json();
-        // const respond = await fetch(`${apiURL1}lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`)
-        // const re = await respond.json();
-        console.log(res)
+        const respond = await fetch(`${apiURL1}lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`)
+        const re = await respond.json();
+        // console.log(res)
         setData(res);
         setRendering(false);
         // setforecastData(re); 
+        setforecastData(re); 
       } catch (error) {
         console.error('Error cannot get geolocation or fetching data:', error);
 
@@ -80,6 +83,8 @@ function App() {
     <h1 className="title">Weather</h1>
         <section className="display">
         {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
+        (<div></div>)}
+        {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
         (<div></div>)}
         </section>
         {/* 

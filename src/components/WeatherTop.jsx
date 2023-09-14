@@ -1,6 +1,7 @@
 import React from 'react'; 
 import moment from 'moment';
-const Weather = ({ weatherIcons, weatherData }) => {
+const Weather = ({ weatherIcons, weatherData}) => {
+
 
 
     const day = moment().format('dddd');
