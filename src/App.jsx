@@ -3,13 +3,12 @@ import './css/weather-icons.min.css'
 import { useState, useEffect } from 'react';
 import WeatherTop from "./components/WeatherTop";
 
-
 function App() {
   //Let's make 2 states to store current geolocation for the app
   const [lat, setLat]= useState([]);
   const [long, setLong] = useState([]);
   const [data, setData]= useState([]);
-  const [background, setBackground] = useState(null);
+  // const [background, setBackground] = useState(null);
   const [rendering, setRendering] = useState([true]);
 
   const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
