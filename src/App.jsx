@@ -55,13 +55,10 @@ function App() {
 
   });
 
-  
-
-
   return (
     <> <div className="container-all" style={{
       backgroundImage: `url(${background})`}} >
-          <h1 className="title">Weather</h1>
+          <h1 className="title">WeatherView</h1>
            <section className="display">
               {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
                 (<div className="title">

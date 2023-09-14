@@ -5,8 +5,7 @@ const getLocation = () => {
   useGeolocated({
       positionOptions: {
           enableHighAccuracy: false,
-      },
-      userDecisionTimeout: 5000,
+      }
   });
   const location = {
     "latitude" : coords?.latitude,

@@ -1,8 +1,9 @@
-# Weather App by Nilin 
-This Weather app is built using React and OpenWeathermap API. It has components that would fetch the current geo-location, request the data from OpenWeathermap API based on the current location, and render/display the current weather. 
+# WeatherView App by Nilin 
+This WeatherView app is built using React and OpenWeathermap API. It has components that would fetch the current geo-location, request the data from OpenWeathermap API based on the current location, and render/display the current weather. 
 # Deployed App:
 ## Tech Used
 - React JS
+- Vite
 - JSX
 - CSS
 - Figma
@@ -12,10 +13,18 @@ This Weather app is built using React and OpenWeathermap API. It has components 
 - Display the received information and forecast weather for the next 5 days
 
 ### Specificity Implemented:
+- react useState, useEffect 
+- react-geolocated module
+- Weather Icons from: https://erikflowers.github.io/weather-icons/
+
+## WeatherView Contributors:
+* Fetching Location with axios: Tutorials from: https://www.npmjs.com/package/react-geolocated 
+* API fetch both for current weather and forecast days is done by Nilin using fetch (trying out both fetch and axios)
+* Displaying Weather Data both is done by Nilin
 
 ## Figma UI's Link: https://www.figma.com/file/yT1kgNPMGwJ6EtUn9fy81N/Weather-App?type=design&node-id=7%3A99&mode=design&t=MD0nB0bXHR1Q26V5-1
 
-## App Flow:
+## App Flow: https://www.figma.com/file/npIs51ILcHHjOqyBZMsHDt/WeatherView-App-Flow?type=whiteboard&node-id=0%3A1&t=iropHjHjy0UVLexH-1
 
 ## Git Flow Method: 
 1. Main Branch:
@@ -27,9 +36,9 @@ All feature branches () are merged into develop. -Develop represent the latest s
 3. Feature Branches:
 Features that represents all the functions of the app
 The feature branches include:
-feature/issue1: 
-feature/issue2: 
-feature/issue3: 
+feature/issue1: Visualize current weather after fetching from API
+feature/issue2: Visualize forecast data after fetching from API
+feature/issue3: Search bar by dropdown.
 4. Release Branch:
 This is the branch for the app deployment and is based off of develop branch.
 The tag is in the form of 1.0, 1.1, etc.
@@ -55,26 +64,24 @@ Images should be named with dashes and lowercase letters.
 Use Heading in hierarchy: h1 -> h2 -> h3 ....
 Layout of content: always use frame for the layout
 Indentation: 20px between elements (y axis)
+
 ### Icon Size:
 Max-width: 48px (include touch area)
 ### Border Radius: 5px
 ### Font family :'Roboto', sans-serif;
 ### Font size:
-- h1: 32px , line height: 40px, font weight: 500
+- Title: 58px , line height: 40px, font weight: 500
 - h2: 28px , line height: 36px, font weight: 500
 - h3: 24px , line height: 32px, font weight: 500
 - h1: 32px , line height: 40px, font weight: 500
 - Title large- 22px, line height: 28px, font weight: regular
-- Title2: 16px, line height: 24px, letter spacing: 0.15px, font weight: medium
-- Title3: 14px, line height: 20px, letter spacing: 0.1px, font weight: medium
-- Body: 14px, line height: 20px, letter spacing: 0.2px, font weight: regular
-- Body: 12px, line height: 16px, letter spacing: 0.4px, font weight: regular
+
 ### Color:
 - Primary: #E3F4FE
 - On Primary: #2B374D
 - Secondary: #6288A3
 - On Secondary: #FFFEF9
-- Background image: ![background image](./src/assets/bg.jpeg)
+- Background image: generated based on current location
 
 ### Grid
 Large min 1440px:
@@ -84,7 +91,8 @@ Medium min(900px):
 Small (from 900px-600px):
 8 columns, stretch, Margin: 32px, Gutter: 16px
 ### Components
-Icons from Google MDC
+- Weather Icons from: https://erikflowers.github.io/weather-icons/
+
 ## CSS Guide:
 ### Formatting
 - Use soft tabs (2 spaces) for indentation
