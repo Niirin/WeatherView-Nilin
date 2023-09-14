@@ -3,15 +3,17 @@
 /* Global Styles */
 
 body{
-  width: 100vw;
-  min-height: 100vh;
-  /* background-image: url(./assets/b-g.jpg); */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   font-family: 'Roboto', sans-serif;
   color: #2B374D;
   margin: 0px;
+}
+
+.container-all {
+  width: 100vw;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 h1 {
@@ -90,7 +92,7 @@ h4 {
 
 .forecast-days {
   font-size: 1.5em;
-  color: #E3F4FE;
+  color: #6288A3;
   margin-top: 20px;
 }
 
