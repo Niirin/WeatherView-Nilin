@@ -8,17 +8,9 @@ import fetchCurrentData from './components/ApiCurrent';
 import fetchForecastData from './components/ApiForecast';
 
 function App() {
-  //Let's make 2 states to store current geolocation for the app
-  // const [lat, setLat]= useState([]);
-  // const [long, setLong] = useState([]);
-  // const [data, setData]= useState([]);
   const [background, setBackground] = useState();
-  // const [forecastData, setforecastData] = useState([]);
   const data = fetchCurrentData(); 
   const forecastData = fetchForecastData();
-  // const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
-  // const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
-  // const apiKey = import.meta.env.VITE_APP_API_KEY;
 
   const weatherIcons = {
     //Main
