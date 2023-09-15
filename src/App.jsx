@@ -97,12 +97,12 @@ function App() {
               {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
                 (<div className="title">
                   Fetching data... &nbsp;          
-                  <img src="./src/assets/loading.gif" alt="downloading data" />
+                  <img src="./loading.gif" alt="downloading data" />
                 </div>)}
               {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
                 (<div className="title">
                   Fetching forecast data... &nbsp;
-                <img src="./src/assets/loading.gif" alt="downloading data" />
+                <img src="./loading.gif" alt="downloading data" />
                 </div>)}
             </section>
         </div>
