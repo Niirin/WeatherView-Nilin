@@ -40,8 +40,8 @@ function App() {
   // const [location, setLocation]= useState([]);
 
   //Let's fetch the current weather data based on geolocation:     
-  const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
-  const apiKey = import.meta.env.VITE_APP_API_KEY;
+  // const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
+  // const apiKey = import.meta.env.VITE_APP_API_KEY;
   const currentLocation = GetLocation(); 
 
     useEffect(() => {
@@ -49,7 +49,7 @@ function App() {
             try {
                 // setLat(currentLocation?.latitude)
                 // setLong(currentLocation?.longitude)
-                const response = await fetch(`${apiURL2}lat=${currentLocation?.lat}&lon=${currentLocation?.lng}&units=metric&appid=${apiKey}`)
+                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation?.lat}&lon=${currentLocation?.lng}&units=metric&appid=e0b4704eaf1d4d01e8b45b83afaec54f`)
                 const res = await response.json();
                 setData(res);
                 // console.log(lat, long);
@@ -72,7 +72,7 @@ function App() {
     const searchImg = async (term) => {
       const response = await axios.get('https://api.unsplash.com/search/photos', {
       headers: {
-          Authorization: import.meta.env.VITE_UNSPLASH_KEY,
+          Authorization: "Client-ID -Ludp3f25IGASQheisKtmU_HdsEDIMo2zMnO_5OsXp8",
       }, 
       params: {
           query: term,

@@ -3,8 +3,8 @@ import GetLocation from './GetLocation';
 
 const fetchForecastData = () => {
     const [data, setData] = useState([]);
-    const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
-    const apiKey = import.meta.env.VITE_APP_API_KEY;
+    // const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
+    // const apiKey = import.meta.env.VITE_APP_API_KEY;
     const location = GetLocation();
     const lat = (location?.lat);
     const long = (location?.lng);
@@ -12,7 +12,7 @@ const fetchForecastData = () => {
     useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await fetch(`${apiURL1}lat=${lat}&lon=${long}&units=metric&appid=${apiKey}`)
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=metric&appid=e0b4704eaf1d4d01e8b45b83afaec54f`)
             const res = await response.json();
             // console.log(res);
             setData(res);
