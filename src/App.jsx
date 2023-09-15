@@ -1,69 +1,77 @@
 import './App.css'
 import './css/weather-icons.min.css' 
-import { useState } from 'react';
-// import './css/weather-icons.css'
+import { useState, useEffect } from 'react';
+import axios from "axios";
+import WeatherTop from "./components/WeatherTop";
+import WeatherForecast from './components/WeatherForecast';
+import fetchCurrentData from './components/ApiCurrent';
+import fetchForecastData from './components/ApiForecast';
+
 function App() {
+  const [background, setBackground] = useState();
+  const data = fetchCurrentData(); 
+  const forecastData = fetchForecastData();
+
+  const weatherIcons = {
+    //Main
+    "clear" : "wi-day-sunny",
+    "smoke": "wi-smoke",
+    "haze" : "wi-dust",
+    "dust" : "wi-dust",
+    "fog" : "wi-fog",
+    "sand" : "wi-sandstorm",
+    "ash" : "wi-volcano",
+    "squails" : "wi-dust",
+    "tornado" : "wi-tornado",
+    "drizzle" : "wi-showers",
+    "rain" : " wi-day-rain",
+    "thunderstorm" : "wi-thunderstorm",
+    //Description for main display
+    "few clouds" : "wi-day-cloudy",
+    "scattered clouds" : "wi-cloud",
+    "broken clouds" : "wi-cloudy",
+    "overcast clouds": "wi-cloudy",
+    "clouds" : "wi-cloudy"
+  };
+
+  //Let's try to fetch picture and set background image from an API
+  useEffect(() => {
+    const searchImg = async (term) => {
+      const response = await axios.get('https://api.unsplash.com/search/photos', {
+      headers: {
+          Authorization: import.meta.env.VITE_UNSPLASH_KEY,
+      }, 
+      params: {
+          query: term,
+      }
+      });
+      // console.log(response.data.results);
+            setBackground(response.data?.results[0].urls?.raw);
+      return response.data.results;
+  }
+  if (typeof data.name !=='undefined') {
+    searchImg(data.name);
+  }
+
+  });
 
   return (
-    <><body>
-        <h1 className="title">Weather</h1>
-        <section className="display">
-          <div className="top-container">
-            <div className="icons-main">
-              <i className="wi wi-day-sunny-overcast big-N" alt="sunny overcast" />
-            </div>
-            <div className="current-weather">
-              <h2>Today:  </h2>
-              <h1>
-                <img className="map-icon" src="/map-pin.svg" alt="current location" />
-                Phnom Penh, KH
-              </h1>
-              <h1 className="temperature">
-                24&deg; 
-                {/* <img className="celsius-big " src="/celsius.svg" alt="degrees celsius"/> */}
-              </h1>
-              <h1>Overcast</h1>
-            </div>
-          </div>
-          <div className="forecast-days">Next 4 Days</div>
-          <div className="day-forecast-cont">
-            <div className="day-forecast-1">
-              <h2> Wednesday</h2>
-              <i className="wi wi-day-sunny-overcast mini-N" />
-            </div>
-            <div className="day-forecast-2">
-              <h2>25&deg;
-                Overcast
-              </h2>
-            </div>
-          </div>
-          {/* Day 2 */}
-          <div className="day-forecast-cont">
-            <div className="day-forecast-1">
-              <h2> Wednesday</h2>
-              <i className="wi wi-day-sunny-overcast mini-N" />
-            </div>
-            <div className="day-forecast-2">
-              <h2>25&deg;
-                Overcast
-              </h2>
-            </div>
-          </div>
-          {/* Day 3 */}
-          <div className="day-forecast-cont">
-            <div className="day-forecast-1">
-              <h2> Wednesday</h2>
-              <i className="wi wi-day-sunny-overcast mini-N" />
-            </div>
-            <div className="day-forecast-2">
-              <h2>25&deg;
-                Overcast
-              </h2>
-            </div>
-          </div>
-
-        </section>
-    </body>
+    <> <div className="container-all" style={{
+      backgroundImage: `url(${background})`}} >
+          <h1 className="title">WeatherView</h1>
+           <section className="display">
+              {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
+                (<div className="title">
+                  Fetching data... &nbsp;            
+                  <i className="wi wi-cloud-down" alt="downloading data" />
+                </div>)}
+              {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
+                (<div className="title">
+                  Fetching forecast data... &nbsp;
+                <i className="wi wi-cloud-down" alt="downloading data" />
+                </div>)}
+            </section>
+        </div>
     </>
   )
 }
