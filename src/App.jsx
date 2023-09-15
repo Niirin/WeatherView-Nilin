@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import WeatherTop from "./components/WeatherTop";
 import WeatherForecast from './components/WeatherForecast';
-import GetLocation from './components/getLocation';
+import GetLocation from './components/GetLocation';
 import fetchForecastData from './components/ApiForecast';
 import SearchDropDown from './components/SearchDropDown';
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import GetLocation from './getLocation';
+import GetLocation from './GetLocation';
 
 const fetchForecastData = () => {
     const [data, setData] = useState([]);
