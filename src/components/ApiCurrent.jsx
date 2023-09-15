@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import getLocation from './getLocation';
+import GetLocation from './GetLocation';
 
 const fetchCurrentData = () => {
     const [data, setData] = useState([]);
     const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
     const apiKey = import.meta.env.VITE_APP_API_KEY;
-    const location = getLocation();
+    const location = GetLocation();
     const lat = (location["latitude"]);
     const long = (location["longitude"]);
 
@@ -18,7 +18,6 @@ const fetchCurrentData = () => {
             setData(res);
         } catch (error) {
             console.error('Error cannot get geolocation or fetching data:', error);
-    
         }
       };
       fetchData();

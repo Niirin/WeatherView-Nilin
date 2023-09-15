@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import getLocation from './getLocation';
+import GetLocation from './GetLocation';
 
 const fetchForecastData = () => {
     const [data, setData] = useState([]);
     const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
     const apiKey = import.meta.env.VITE_APP_API_KEY;
-    const location = getLocation();
+    const location = GetLocation();
     const lat = (location["latitude"]);
     const long = (location["longitude"]);
 

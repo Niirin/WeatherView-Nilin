@@ -21,14 +21,14 @@ const WeatherForecast = ({ weatherIcons, forecastData }) => {
     "temp" : Math.floor(forecastData.list[16].main.temp)
   }
   const day4 = {
+    "description" : forecastData.list[24].weather[0].main,
+    "dayofWeek" : getDay(forecastData.list[24].dt),
+    "temp" : Math.floor(forecastData.list[24].main.temp)
+  }
+  const day5 = {
     "description" : forecastData.list[32].weather[0].main,
     "dayofWeek" : getDay(forecastData.list[32].dt),
     "temp" : Math.floor(forecastData.list[32].main.temp)
-  }
-  const day5 = {
-    "description" : forecastData.list[39].weather[0].main,
-    "dayofWeek" : getDay(forecastData.list[39].dt),
-    "temp" : Math.floor(forecastData.list[39].main.temp)
   }
 
     return(<div>

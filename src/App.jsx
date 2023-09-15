@@ -4,14 +4,11 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import WeatherTop from "./components/WeatherTop";
 import WeatherForecast from './components/WeatherForecast';
-import fetchCurrentData from './components/ApiCurrent';
+import GetLocation from './components/GetLocation';
 import fetchForecastData from './components/ApiForecast';
+import SearchDropDown from './components/SearchDropDown';
 
 function App() {
-  const [background, setBackground] = useState();
-  const data = fetchCurrentData(); 
-  const forecastData = fetchForecastData();
-
   const weatherIcons = {
     //Main
     "clear" : "wi-day-sunny",
@@ -34,6 +31,43 @@ function App() {
     "clouds" : "wi-cloudy"
   };
 
+  const [background, setBackground] = useState();
+  // const [lat, setLat] = useState([]);
+  // const [long, setLong]=useState([]);
+  const [latLong, setLatLong]= useState({});
+  const [notSearched, setNotSearched]= useState(true);
+  // const forecastData = fetchForecastData();
+  const [data, setData] =useState([]);
+
+  //Let's fetch the current weather data based on geolocation:     
+  const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
+  const apiKey = import.meta.env.VITE_APP_API_KEY;
+  const currentLocation = GetLocation();
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+              if (notSearched) {
+                // setLat(currentLocation["latitude"]);
+                // setLong(currentLocation["longitude"]);
+                // setLatLong({latitude, longitude})
+              }
+                const response = await fetch(`${apiURL2}lat=${currentLocation?.latitude}&lon=${currentLocation?.longitude}&units=metric&appid=${apiKey}`)
+                const res = await response.json();
+                setData(res);
+                // console.log(lat, long);
+            } catch (error) {
+                console.error('Error cannot get geolocation or fetching data:', error);
+            }
+          };
+          fetchData();
+        }, [currentLocation] ); //Re-render when lat or long changes
+
+  const handleSubmit = (cityLocation) => {
+    const newLocation = cityLocation;
+  }
+
   //Let's try to fetch picture and set background image from an API
   useEffect(() => {
     const searchImg = async (term) => {
@@ -45,31 +79,32 @@ function App() {
           query: term,
       }
       });
-      // console.log(response.data.results);
-            setBackground(response.data?.results[0].urls?.raw);
+      setBackground(response.data?.results[0].urls?.raw);
       return response.data.results;
   }
   if (typeof data.name !=='undefined') {
     searchImg(data.name);
   }
 
-  });
+  }, [data.name]);
 
   return (
     <> <div className="container-all" style={{
-      backgroundImage: `url(${background})`}} >
+      backgroundImage: `url(${background}`}} >
           <h1 className="title">WeatherView</h1>
            <section className="display">
+           {(typeof data.name !=='undefined') ? (<SearchDropDown onSubmit={handleSubmit} />): 
+                (<div className="title"></div>)}
               {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
                 (<div className="title">
                   Fetching data... &nbsp;            
-                  <i className="wi wi-cloud-down" alt="downloading data" />
+                  <img src="./src/assets/loading.gif" alt="downloading data" />
                 </div>)}
-              {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
+              {/* {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
                 (<div className="title">
                   Fetching forecast data... &nbsp;
-                <i className="wi wi-cloud-down" alt="downloading data" />
-                </div>)}
+                <img src="./src/assets/loading.gif" alt="downloading data" />
+                </div>)} */}
             </section>
         </div>
     </>

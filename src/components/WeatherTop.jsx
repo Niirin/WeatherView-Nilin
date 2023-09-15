@@ -2,8 +2,6 @@ import React from 'react';
 import moment from 'moment';
 const Weather = ({ weatherIcons, weatherData}) => {
 
-
-
     const day = moment().format('dddd');
     const date = moment().format('ll');
     const temperature = Math.floor(weatherData.main.temp);
@@ -24,7 +22,7 @@ const Weather = ({ weatherIcons, weatherData}) => {
                     <h1 className="temperature">
                         {temperature}&deg;
                     </h1>
-                    <h1>{description}</h1>
+                    <h1 className="description">{description}</h1>
                 </div>
             </div>      
     );
