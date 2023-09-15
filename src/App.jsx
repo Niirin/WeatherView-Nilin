@@ -34,26 +34,22 @@ function App() {
   const [background, setBackground] = useState();
   // const [lat, setLat] = useState([]);
   // const [long, setLong]=useState([]);
-  const [latLong, setLatLong]= useState({});
   const [notSearched, setNotSearched]= useState(true);
-  // const forecastData = fetchForecastData();
+  const forecastData = fetchForecastData();
   const [data, setData] =useState([]);
+  // const [location, setLocation]= useState([]);
 
   //Let's fetch the current weather data based on geolocation:     
   const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
   const apiKey = import.meta.env.VITE_APP_API_KEY;
-  const currentLocation = GetLocation();
-
+  const currentLocation = GetLocation(); 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-              if (notSearched) {
-                // setLat(currentLocation["latitude"]);
-                // setLong(currentLocation["longitude"]);
-                // setLatLong({latitude, longitude})
-              }
-                const response = await fetch(`${apiURL2}lat=${currentLocation?.latitude}&lon=${currentLocation?.longitude}&units=metric&appid=${apiKey}`)
+                // setLat(currentLocation?.latitude)
+                // setLong(currentLocation?.longitude)
+                const response = await fetch(`${apiURL2}lat=${currentLocation?.lat}&lon=${currentLocation?.lng}&units=metric&appid=${apiKey}`)
                 const res = await response.json();
                 setData(res);
                 // console.log(lat, long);
@@ -65,7 +61,10 @@ function App() {
         }, [currentLocation] ); //Re-render when lat or long changes
 
   const handleSubmit = (cityLocation) => {
-    const newLocation = cityLocation;
+    const newLocat = cityLocation;
+    console.log(newLocat?.lat, newLocat?.long);
+    setNotSearched(!notSearched);
+    setLocation(newLocat);
   }
 
   //Let's try to fetch picture and set background image from an API
@@ -93,18 +92,18 @@ function App() {
       backgroundImage: `url(${background}`}} >
           <h1 className="title">WeatherView</h1>
            <section className="display">
-           {(typeof data.name !=='undefined') ? (<SearchDropDown onSubmit={handleSubmit} />): 
+           {(typeof data.name !=='undefined') ? (<SearchDropDown onSubmit={handleSubmit}  />): 
                 (<div className="title"></div>)}
               {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
                 (<div className="title">
-                  Fetching data... &nbsp;            
+                  Fetching data... &nbsp;          
                   <img src="./src/assets/loading.gif" alt="downloading data" />
                 </div>)}
-              {/* {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
+              {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
                 (<div className="title">
                   Fetching forecast data... &nbsp;
                 <img src="./src/assets/loading.gif" alt="downloading data" />
-                </div>)} */}
+                </div>)}
             </section>
         </div>
     </>

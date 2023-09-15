@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 
-const SearchDropDown=(onSubmit) => {
+const SearchDropDown=({onSubmit}) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [inputValue, setInputValue] = useState('Search for any city');
     const [suggests, setSuggests] = useState([]);
     const [clickedSearch, setClickedSearch] = useState(false);
+    const [location, setLocation]= useState([]);
 
     const inputRef = useRef(null);
 
@@ -36,13 +37,21 @@ const SearchDropDown=(onSubmit) => {
         console.log(city);
         setInputValue(city.formatted);
         inputRef.current.value= '';
-        console.log(city.geometry);
-        onSubmit(city.geometry);
+        // console.log(city.geometry);
+        // onSubmit(cityLocation);
+        setLocation(city.geometry);
+
+    }
+
+    const handleSubmit= (e) => {
+        e.preventDefault();
+        console.log(location);
+        onSubmit(location);
     }
 
 
     return <div className="search-cont">
-        <form className="search-bar">
+        <form className="search-bar" onSubmit={handleSubmit}>
             <input 
                 className="search-field"
                 ref={inputRef}

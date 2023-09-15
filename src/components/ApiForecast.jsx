@@ -6,8 +6,8 @@ const fetchForecastData = () => {
     const apiURL1 = import.meta.env.VITE_APP_API_URL_F;
     const apiKey = import.meta.env.VITE_APP_API_KEY;
     const location = GetLocation();
-    const lat = (location["latitude"]);
-    const long = (location["longitude"]);
+    const lat = (location?.lat);
+    const long = (location?.lng);
 
     useEffect(() => {
     const fetchData = async () => {

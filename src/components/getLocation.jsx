@@ -8,8 +8,8 @@ const GetLocation = () => {
       }
   });
   const location = {
-    latitude : coords?.latitude,
-    longitude : coords?.longitude
+    lat : coords?.latitude,
+    lng : coords?.longitude
   }
 
   return (isGeolocationAvailable && isGeolocationEnabled && coords ? ( location
