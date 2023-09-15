@@ -59,7 +59,7 @@ const SearchDropDown=({onSubmit}) => {
                 onChange= {handleInputChange}
                 placeholder={inputValue}
             />
-            <img className="search" src="./assets/search_icon.svg" alt="search" onClick={handleClickSearch} />
+            <img className="search" src="./search_icon.svg" alt="search" onClick={handleClickSearch} />
             </form>
             {clickedSearch && (
                 <ul className="suggests-cont">
