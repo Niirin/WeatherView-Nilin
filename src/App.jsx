@@ -66,7 +66,7 @@ function App() {
             }
           };
           fetchData();
-        }, [currentLocation?.lat, currentLocation?.lng] ); //Re-render when lat or long changes
+        }, [currentLocation?.lat, currentLocation?.lng,location?.lat, location?.lng ] ); //Re-render when lat or long changes
 
   const handleSubmit = (cityLocation) => {
     const newLocat = cityLocation;
