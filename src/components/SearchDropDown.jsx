@@ -11,8 +11,8 @@ const SearchDropDown=({onSubmit}) => {
 
 
     //Let's use API to send the search term to get suggestions
-    const apiURL = import.meta.env.VITE_APP_API_GEO;
-    const apikey = import.meta.env.VITE_GEOCODER_KEY;
+    const apiURL = "https://api.opencagedata.com/geocode/v1/json?";
+    const apikey = "1e338be1330a49438c64c69bc1f236d4";
 
 
     const handleInputChange = (e) => {
