@@ -5,7 +5,6 @@ import axios from "axios";
 import WeatherTop from "./components/WeatherTop";
 import WeatherForecast from './components/WeatherForecast';
 import GetLocation from './components/GetLocation';
-import fetchForecastData from './components/ApiForecast';
 import SearchDropDown from './components/SearchDropDown';
 
 function App() {
@@ -32,15 +31,14 @@ function App() {
   };
 
   const [background, setBackground] = useState();
-  // const [lat, setLat] = useState([]);
-  // const [long, setLong]=useState([]);
   const [notSearched, setNotSearched]= useState(true);
-  const forecastData = fetchForecastData();
   const [data, setData] =useState([]);
+  const [forecastData, setForecastData] = useState([]);
   const [location, setLocation]= useState({lat: 0 , lng: 0});
 
   //Let's fetch the current weather data based on geolocation:     
-  const apiURL2 = "https://api.openweathermap.org/data/2.5/weather?";
+  const apiURLCurrent = "https://api.openweathermap.org/data/2.5/weather?";
+  const apiURLForecast = "https://api.openweathermap.org/data/2.5/forecast?";
   const apiKey = "e0b4704eaf1d4d01e8b45b83afaec54f";
   const currentLocation = GetLocation(); 
   
@@ -49,16 +47,22 @@ function App() {
         const fetchData = async () => {
             try {
                 if (notSearched && currentLocation) {
-                  console.log(currentLocation?.lat, currentLocation?.lng);
-                const response = await fetch(`${apiURL2}lat=${currentLocation?.lat}&lon=${currentLocation?.lng}&units=metric&appid=${apiKey}`);
-                const res = await response.json();
-                setData(res);
+                  // console.log(currentLocation?.lat, currentLocation?.lng);
+                const response1 = await fetch(`${apiURLCurrent}lat=${currentLocation?.lat}&lon=${currentLocation?.lng}&units=metric&appid=${apiKey}`);
+                const res1 = await response1.json();
+                setData(res1);
+                const response2 = await fetch(`${apiURLForecast}lat=${currentLocation?.lat}&lon=${currentLocation?.lng}&units=metric&appid=${apiKey}`)
+                const res2 = await response2.json();
+                setForecastData(res2);
                 }
                 else {
-                  const response = await fetch(`${apiURL2}lat=${location?.lat}&lon=${location?.lng}&units=metric&appid=${apiKey}`);
-                  const res = await response.json();
+                  const response1 = await fetch(`${apiURLCurrent}lat=${location?.lat}&lon=${location?.lng}&units=metric&appid=${apiKey}`);
+                  const res1 = await response1.json();
+                  setData(res1);
+                  const response2 = await fetch(`${apiURLForecast}lat=${location?.lat}&lon=${location?.lng}&units=metric&appid=${apiKey}`)
+                  const res2 = await response2.json();
+                  setForecastData(res2);
                   // console.log(res);
-                  setData(res);
                 }
                 // console.log(lat, long);
             } catch (error) {
@@ -70,7 +74,7 @@ function App() {
 
   const handleSubmit = (cityLocation) => {
     const newLocat = cityLocation;
-    console.log(newLocat?.lat, newLocat?.lng);
+    // console.log(newLocat?.lat, newLocat?.lng);
     setNotSearched(false);
     const updateLocation= () => {
       location.lat = newLocat?.lat;
@@ -78,7 +82,7 @@ function App() {
       setLocation({...newLocat});
     } 
     updateLocation();
-    console.log(location?.lat, location?.lng);
+    // console.log(location?.lat, location?.lng);
   }
 
   //Let's try to fetch picture and set background image from an API
@@ -108,7 +112,7 @@ function App() {
            <section className="display">
            {(typeof data.name !=='undefined' && currentLocation) ? (<SearchDropDown onSubmit={handleSubmit}  />): 
                 (<div className="title"></div>)}
-              {(typeof data.name !=='undefined' && currentLocation) ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
+              {(typeof data.name !=='undefined' && currentLocation ) ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
                 (<div className="title">
                   Fetching data... &nbsp;          
                   <img src="./loading.gif" alt="downloading data" />

@@ -25,7 +25,7 @@ const SearchDropDown=({onSubmit}) => {
             const response = await fetch(`${apiURL}q=${searchTerm}&key=${apikey}`)
             const res = await response.json();
             setSuggests(res.results);
-            console.log(res.results);
+            // console.log(res.results);
             setClickedSearch(true);
         } catch (error) {
             console.log('Error fetching query term for city:', error);
@@ -34,17 +34,17 @@ const SearchDropDown=({onSubmit}) => {
 
     const handleSelectChange = (city) => {
         setClickedSearch(!clickedSearch);
-        console.log(city);
+        // console.log(city);
         setInputValue(city.formatted);
         inputRef.current.value= '';
-        console.log(city.geometry);
+        // console.log(city.geometry);
         const updateLocation= () => {
             location.lat = city.geometry?.lat;
             location.lng = city.geometry?.lng;
             setLocation({...city.geometry});
         } 
         updateLocation();
-        console.log(location);
+        // console.log(location);
         onSubmit(location);
 
     }
