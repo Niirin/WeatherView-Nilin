@@ -5,7 +5,7 @@ const SearchDropDown=({onSubmit}) => {
     const [inputValue, setInputValue] = useState('Search for any city');
     const [suggests, setSuggests] = useState([]);
     const [clickedSearch, setClickedSearch] = useState(false);
-    const [location, setLocation]= useState([]);
+    const [location, setLocation]= useState({lat : 0, lng : 0});
 
     const inputRef = useRef(null);
 
@@ -37,15 +37,20 @@ const SearchDropDown=({onSubmit}) => {
         console.log(city);
         setInputValue(city.formatted);
         inputRef.current.value= '';
-        // console.log(city.geometry);
-        // onSubmit(cityLocation);
-        setLocation(city.geometry);
+        console.log(city.geometry);
+        const updateLocation= () => {
+            location.lat = city.geometry?.lat;
+            location.lng = city.geometry?.lng;
+            setLocation({...city.geometry});
+        } 
+        updateLocation();
+        console.log(location);
+        onSubmit(location);
 
     }
 
     const handleSubmit= (e) => {
         e.preventDefault();
-        console.log(location);
         onSubmit(location);
     }
 
@@ -56,6 +61,7 @@ const SearchDropDown=({onSubmit}) => {
                 className="search-field"
                 ref={inputRef}
                 type = "text"
+                value={searchTerm}
                 onChange= {handleInputChange}
                 placeholder={inputValue}
             />
@@ -64,7 +70,7 @@ const SearchDropDown=({onSubmit}) => {
             {clickedSearch && (
                 <ul className="suggests-cont">
                     {suggests.map((suggest, index)=> (
-                        <li className="suggest" onClick={() => handleSelectChange(suggest)} key={index}>{suggest.formatted}</li>
+                        <li className="suggest"  onClick={() => handleSelectChange(suggest)} key={index}>{suggest.formatted}</li>
                     ))}
                 </ul>
             )}

@@ -37,34 +37,48 @@ function App() {
   const [notSearched, setNotSearched]= useState(true);
   const forecastData = fetchForecastData();
   const [data, setData] =useState([]);
-  // const [location, setLocation]= useState([]);
+  const [location, setLocation]= useState({lat: 0 , lng: 0});
 
   //Let's fetch the current weather data based on geolocation:     
-  // const apiURL2 = import.meta.env.VITE_APP_API_URL_C;
-  // const apiKey = import.meta.env.VITE_APP_API_KEY;
+  const apiURL2 = "https://api.openweathermap.org/data/2.5/weather?";
+  const apiKey = "e0b4704eaf1d4d01e8b45b83afaec54f";
   const currentLocation = GetLocation(); 
+  
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // setLat(currentLocation?.latitude)
-                // setLong(currentLocation?.longitude)
-                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation?.lat}&lon=${currentLocation?.lng}&units=metric&appid=e0b4704eaf1d4d01e8b45b83afaec54f`)
+                if (notSearched && currentLocation) {
+                  console.log(currentLocation?.lat, currentLocation?.lng);
+                const response = await fetch(`${apiURL2}lat=${currentLocation?.lat}&lon=${currentLocation?.lng}&units=metric&appid=${apiKey}`);
                 const res = await response.json();
                 setData(res);
+                }
+                else {
+                  const response = await fetch(`${apiURL2}lat=${location?.lat}&lon=${location?.lng}&units=metric&appid=${apiKey}`);
+                  const res = await response.json();
+                  // console.log(res);
+                  setData(res);
+                }
                 // console.log(lat, long);
             } catch (error) {
                 console.error('Error cannot get geolocation or fetching data:', error);
             }
           };
           fetchData();
-        }, [currentLocation] ); //Re-render when lat or long changes
+        }, [currentLocation?.lat, currentLocation?.lng] ); //Re-render when lat or long changes
 
   const handleSubmit = (cityLocation) => {
     const newLocat = cityLocation;
-    console.log(newLocat?.lat, newLocat?.long);
-    setNotSearched(!notSearched);
-    setLocation(newLocat);
+    console.log(newLocat?.lat, newLocat?.lng);
+    setNotSearched(false);
+    const updateLocation= () => {
+      location.lat = newLocat?.lat;
+      location.lng = newLocat?.lng;
+      setLocation({...newLocat});
+    } 
+    updateLocation();
+    console.log(location?.lat, location?.lng);
   }
 
   //Let's try to fetch picture and set background image from an API
@@ -92,14 +106,14 @@ function App() {
       backgroundImage: `url(${background}`}} >
           <h1 className="title">WeatherView</h1>
            <section className="display">
-           {(typeof data.name !=='undefined') ? (<SearchDropDown onSubmit={handleSubmit}  />): 
+           {(typeof data.name !=='undefined' && currentLocation) ? (<SearchDropDown onSubmit={handleSubmit}  />): 
                 (<div className="title"></div>)}
-              {(typeof data.name !=='undefined') ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
+              {(typeof data.name !=='undefined' && currentLocation) ? (<WeatherTop weatherData={data} weatherIcons={weatherIcons} />): 
                 (<div className="title">
                   Fetching data... &nbsp;          
                   <img src="./loading.gif" alt="downloading data" />
                 </div>)}
-              {(typeof forecastData.cnt !=='undefined') ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
+              {(typeof forecastData.cnt !=='undefined' && currentLocation) ? (<WeatherForecast forecastData={forecastData} weatherIcons={weatherIcons} />): 
                 (<div className="title">
                   Fetching forecast data... &nbsp;
                 <img src="./loading.gif" alt="downloading data" />

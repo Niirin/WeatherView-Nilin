@@ -12,8 +12,9 @@ const GetLocation = () => {
     lng : coords?.longitude
   }
 
-  return (isGeolocationAvailable && isGeolocationEnabled && coords ? ( location
-  ):<div>Error cannot get geolocation.</div>)
+  if (isGeolocationAvailable && isGeolocationEnabled && coords){
+    return location;
+  }
 
 }
 export default GetLocation; 
