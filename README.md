@@ -39,7 +39,7 @@ This WeatherView app is built using React and OpenWeathermap API. It has compone
 - Figma
 
 ## Folder Structure: 
-![Folder structure screenshot](/public/folder-structure.png)
+![Folder structure screenshot](./public/folder-structure.png)
 
 ### Specificity Implemented:
 - react useState, useEffect , useRef(for testing purposes)
